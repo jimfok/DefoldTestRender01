@@ -1,8 +1,9 @@
 [project]
-title = MobileGame
+title = DefoldTestRender01
 
 [bootstrap]
 main_collection = /main/main.collectionc
+render = /render/custom.renderc
 
 [input]
 game_binding = /input/game.input_bindingc
@@ -49,6 +50,3 @@ velocity_threshold = 100.0
 [html5]
 scale_mode = stretch
 
-
-[render]
-script = /render/primitive_render.script
