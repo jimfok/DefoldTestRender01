@@ -22,6 +22,8 @@ local MSG_SET_CAMERA_PROJ =     hash("use_camera_projection")
 local MSG_USE_STRETCH_PROJ =    hash("use_stretch_projection")
 local MSG_USE_FIXED_PROJ =      hash("use_fixed_projection")
 local MSG_USE_FIXED_FIT_PROJ =  hash("use_fixed_fit_projection")
+local MSG_DRAW_LINE =          hash("draw_line")
+local MSG_DRAW_TEXT =          hash("draw_text")
 
 local DEFAULT_NEAR = -1
 local DEFAULT_FAR =   1
@@ -180,6 +182,8 @@ function init(self)
 
     local state = create_state()
     self.state = state
+    self.lines = {}
+    self.texts = {}
 
     local camera_world = create_camera(state, "camera_world", true)
     init_camera(camera_world, get_stretch_projection)
@@ -245,6 +249,15 @@ function update(self)
     render.draw(predicates.debug_text, camera_gui.options)
     render.disable_state(graphics.STATE_STENCIL_TEST)
     render.disable_state(graphics.STATE_BLEND)
+
+    for _, line in ipairs(self.lines) do
+        render.draw_line(line.start, line["end"], line.color or vmath.vector4(1, 1, 1, 1))
+    end
+    for _, text in ipairs(self.texts) do
+        render.draw_debug_text(text.text, text.start, text.color or vmath.vector4(1, 1, 1, 1))
+    end
+    self.lines = {}
+    self.texts = {}
 end
 
 function on_message(self, message_id, message)
@@ -270,5 +283,9 @@ function on_message(self, message_id, message)
     elseif message_id == MSG_USE_FIXED_FIT_PROJ then
         init_camera(camera, get_fixed_fit_projection, message.near, message.far)
         update_camera(camera, state)
+    elseif message_id == MSG_DRAW_LINE then
+        self.lines[#self.lines + 1] = message
+    elseif message_id == MSG_DRAW_TEXT then
+        self.texts[#self.texts + 1] = message
     end
 end
