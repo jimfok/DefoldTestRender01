@@ -1,4 +1,8 @@
-# Welcome to Defold
+# Defold Draw Primitives Sandbox
+
+This sandbox project began as the standard Defold mobile template.
+It now includes a small random number helper (`modules/random_dice.lua`) and serves as the basis for experimenting with a Game Object level Draw Primitive module.
+All repository changes are tracked in `codexlog.md`.
 
 This project was created from the "mobile" project template. This means that the settings in ["game.project"](defold://open?path=/game.project) have been changed to be suitable for a mobile game:
 
