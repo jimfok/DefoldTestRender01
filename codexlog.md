@@ -5,3 +5,4 @@
 - Added random_dice.lua helper
 - Added codexlog.md and updated AGENTS rules
 - Updated README with project details
+- Added primitive_render script and render config
